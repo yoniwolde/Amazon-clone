@@ -1,10 +1,11 @@
 import React from "react";
 import "./App.css";
+import Header from "./Component/Header/Header";
 
 function App() {
   return (
      <>
-    <h1>YONI</h1>
+    <Header/>
   </>
   )
  
