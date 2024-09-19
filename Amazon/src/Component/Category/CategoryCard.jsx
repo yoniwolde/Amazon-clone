@@ -1,10 +1,10 @@
 import React from 'react'
-import './category.css';
+import classes from './category.module.css';
 import { Link } from 'react-router-dom';
 
 function CategoryCard({data}) {
   return (
-    <div className="category">
+    <div className={classes.category}>
       <Link to={`/category/${data.name}`}>
         <span>
           <h2>{data?.title}</h2>

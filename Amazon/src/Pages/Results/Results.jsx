@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import "./Results.css"
+import classes from "./Results.module.css"
 import LayOut from '../../Component/Layout/LayOut'
 import { useParams } from 'react-router-dom';
 import axios from "axios"
@@ -36,7 +36,7 @@ function Results() {
         {isLoading ? (
           <Loader />
         ) : (
-          <div className="Product_container">
+            <div className={classes.Product_container}>
             {results?.map((product) => (
               <ProductCard
                 key={product.id}

@@ -1,5 +1,5 @@
 import React, { useContext } from 'react'
-import "./Cart.css"
+import classes from "./Cart.module.css"
 import LayOut from '../../Component/Layout/LayOut'
 import { DataContext } from '../../Component/DataProvider/DataProvider';
 import ProductCard from '../../Component/Product/ProductCard';
@@ -31,8 +31,8 @@ function Cart() {
 
   return (
     <LayOut>
-      <section className='container'>
-        <div className='cart_container'>
+      <section className={classes.container}>
+        <div className={classes.cart_container}>
           <h2>Hello</h2>
           <h3>Your Shopping Basket</h3>
           <hr />
@@ -41,7 +41,7 @@ function Cart() {
           ) : (
             basket?.map((item, i) => {
               return (
-                <section className="Cart_product">
+                <section className={classes.Cart_product}>
                   <ProductCard
                     key={i}
                     product={item}
@@ -49,12 +49,12 @@ function Cart() {
                     renderAdd={false}
                     flex={true}
                   />
-                  <div className="btn_container">
-                    <button onClick={() => increment(item)}>
+                  <div className={classes.btn_container}>
+                    <button className={classes.btn} onClick={() => increment(item)}>
                       <IoIosArrowUp size={30}/>
                     </button>
                     <span>{item.amount}</span>
-                    <button onClick={() => decrement(item.id)}>
+                    <button className={classes.btn} onClick={() => decrement(item.id)}>
                       <IoIosArrowDown size={30} />
                     </button>
                   </div>
@@ -64,7 +64,7 @@ function Cart() {
           )}
         </div>
         {basket?.length !== 0 && (
-          <div className='subtotal'>
+          <div className={classes.subtotal}>
             <div>
               <p>Subtotal: ({basket?.length} items)</p>
               <CurrencyFormat amount={total} />
