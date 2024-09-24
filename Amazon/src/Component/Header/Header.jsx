@@ -1,19 +1,19 @@
-import React, { useContext } from 'react';
+import React, { useContext } from "react";
 import "./Header.css";
-import {Link} from "react-router-dom"
+import { Link } from "react-router-dom";
 import { SlLocationPin } from "react-icons/sl";
 import { BsSearch } from "react-icons/bs";
 import { BiCart } from "react-icons/bi";
-import LowerHeader from './LowerHeader';
-import {DataContext} from "../DataProvider/DataProvider"
+import LowerHeader from "./LowerHeader";
+import { DataContext } from "../DataProvider/DataProvider";
+import { auth } from "../../Utility/firebase";
 
 function Header() {
-
-  const [{ basket }, dispatch] = useContext(DataContext)
+  const [{ user, basket }, dispatch] = useContext(DataContext);
   const totalItem = basket?.reduce((amount, item) => {
     return item.amount + amount;
-  },0)
-  
+  }, 0);
+
   return (
     <section className="fixed">
       <section>
@@ -41,7 +41,7 @@ function Header() {
               <option value="">All</option>
             </select>
             <input type="text" name="" id="" placeholder="search Product" />
-            <BsSearch size={25} />
+            <BsSearch size={40} />
           </div>
           {/* right side link*/}
           <div className="order_container">
@@ -55,16 +55,27 @@ function Header() {
               </select>
             </Link>
             {/* three components*/}
-            <Link to="/auth">
-              <div>
-                <p>Sign In</p>
-                <span>Account & Lists</span>
+            <Link to={!user && "/auth"}>
+              <div className="user">
+                {user ? (
+                  <>
+                    <p>Hello {user?.email?.split("@")[0]} </p>
+                    <span onClick={() => auth.signOut()}>Sign Out</span>
+                  </>
+                ) : (
+                  <>
+                    <p>Hello, Sign In</p>
+                    <span>Account & Lists</span>
+                  </>
+                )}
               </div>
             </Link>
-            <Link to="/payments">
-              <p>Returns</p>
-              <span>& Orders</span>
-            </Link>
+            <div className="user">
+              <Link to="/orders">
+                <p>Returns</p>
+                <span>& Orders</span>
+              </Link>
+            </div>
             <Link to="/cart" className="cart">
               <BiCart size={35} />
               <span>{totalItem}</span>
@@ -77,4 +88,4 @@ function Header() {
   );
 }
 
-export default Header
+export default Header;
