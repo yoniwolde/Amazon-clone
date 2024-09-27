@@ -1,6 +1,6 @@
 import React, { useState, useContext } from "react";
 import classes from "./SignUp.module.css";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useNavigate, useLocation } from "react-router-dom";
 import { auth } from "../../Utility/firebase";
 import { signInWithEmailAndPassword, createUserWithEmailAndPassword } from "firebase/auth";
 import { DataContext } from "../../Component/DataProvider/DataProvider";
@@ -17,6 +17,8 @@ function Auth() {
   });
   const [{ user }, dispatch] = useContext(DataContext);
   const navigate = useNavigate();
+  const navStateData = useLocation();
+  console.log(navStateData);
 
 console.log(user);
 
@@ -37,7 +39,7 @@ console.log(user);
           setLoading({...Loading,
             signIn: false,
           })
-          navigate("/");
+          navigate(navStateData?.state?.redirect || "/");
         })
         .catch((err) => {
           setError(err.message);
@@ -54,7 +56,7 @@ console.log(user);
             user: userInfo.user,
           });
           setLoading({ ...Loading, signUp: false });
-          navigate("/");
+          navigate(navStateData?.state?.redirect || "/");
         })
         .catch((err) => {
           setError(err.message);
@@ -69,7 +71,7 @@ console.log(user);
   return (
     <section className={classes.login}>
       {/*logo*/}
-      <Link>
+      <Link to={"/"}>
         <img
           src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/a9/Amazon_logo.svg/1280px-Amazon_logo.svg.png"
           alt=""
@@ -78,6 +80,18 @@ console.log(user);
       {/*form*/}
       <div className={classes.login_container}>
         <h1>Sign In</h1>
+        {navStateData?.state?.msg && (
+          <small
+            style={{
+              padding: "5px",
+              color: "red",
+              textAlign: "center",
+              fontWeight: "bold",
+            }}
+          >
+            {navStateData?.state?.msg}
+          </small>
+        )}
         <form action="">
           <div>
             <label htmlFor="email">E-mail</label>

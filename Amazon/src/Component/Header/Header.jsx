@@ -1,5 +1,5 @@
 import React, { useContext } from "react";
-import "./Header.css";
+import classes from "./Header.module.css";
 import { Link } from "react-router-dom";
 import { SlLocationPin } from "react-icons/sl";
 import { BsSearch } from "react-icons/bs";
@@ -15,18 +15,18 @@ function Header() {
   }, 0);
 
   return (
-    <section className="fixed">
+    <section className={classes.fixed}>
       <section>
-        <div className="header_container">
+        <div className={classes.header_container}>
           {/*logo*/}
-          <div className="logo_container">
+          <div className={classes.logo_container}>
             <Link to="/">
               <img
                 src="https://wallpapers.com/images/hd/amazon-logo-black-background-xb9pdemosnjfz9ej.jpg"
                 alt="amazon logo"
               />
             </Link>
-            <div className="delivery">
+            <div className={classes.delivery}>
               <span>
                 <SlLocationPin />
               </span>
@@ -36,7 +36,7 @@ function Header() {
               </div>
             </div>
           </div>
-          <div className="search">
+          <div className={classes.search}>
             <select name="" id="">
               <option value="">All</option>
             </select>
@@ -44,8 +44,8 @@ function Header() {
             <BsSearch size={40} />
           </div>
           {/* right side link*/}
-          <div className="order_container">
-            <Link to="/orders" className="language">
+          <div className={classes.order_container}>
+            <Link to="/orders" className={classes.language}>
               <img
                 src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/a9/Flag_of_the_United_States_%28DoS_ECA_Color_Standard%29.svg/255px-Flag_of_the_United_States_%28DoS_ECA_Color_Standard%29.svg.png"
                 alt="US flag"
@@ -56,7 +56,7 @@ function Header() {
             </Link>
             {/* three components*/}
             <Link to={!user && "/auth"}>
-              <div className="user">
+              <div className={classes.user}>
                 {user ? (
                   <>
                     <p>Hello {user?.email?.split("@")[0]} </p>
@@ -70,13 +70,13 @@ function Header() {
                 )}
               </div>
             </Link>
-            <div className="user">
+            <div className={classes.user}>
               <Link to="/orders">
                 <p>Returns</p>
-                <span>& Orders</span>
+                <span className={classes.yoni}>& Orders</span>
               </Link>
             </div>
-            <Link to="/cart" className="cart">
+            <Link to="/cart" className={classes.cart}>
               <BiCart size={35} />
               <span>{totalItem}</span>
             </Link>
