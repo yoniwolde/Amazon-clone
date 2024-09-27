@@ -4,10 +4,13 @@ const express = require("express");
 const cors = require("cors");
 const dotenv = require("dotenv");
 const { messaging } = require("firebase-admin");
+const { setGlobalOptions } = require("firebase-functions/v2");
 dotenv.config();
 const stripe = require("stripe")(process.env.STRIPE_KEY);
 
 const app = express();
+setGlobalOptions({ maxInstances: 10 });
+
 app.use(cors({ origin: true }));
 app.use(express.json());
 app.get("/", (req, res) => {
